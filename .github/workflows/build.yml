@@ -56,12 +56,19 @@ jobs:
           tar xfz bzip2-1.0.8.tar.gz
           cd bzip2-1.0.8
           make CFLAGS=-fPIC
+          make -f  Makefile-libbz2_so
           make install
+          cp libbz2.so* /usr/local/lib/
       - name: install libarchive
         run: |
           curl -o libarchive-3.5.1.tar.gz https://libarchive.org/downloads/libarchive-3.5.1.tar.gz
           tar xfz libarchive-3.5.1.tar.gz
           cd libarchive-3.5.1
-          ./configure
-          make
-          ldd .libs/libarchive.so
+          ./configure --disable-static --disable-bsdtar --disable-bsdcpio --disable-bsdcat
+          make LIBS="/usr/local/lib/liblzma.a /usr/local/lib/libcrypto.a /usr/local/lib/libbz2.a /usr/local/lib/libz.a"
+          LD_LIBRARY_PATH=/usr/local/lib ldd .libs/libarchive.so
+      - name: Save libarchive
+        uses: actions/upload-artifact@v2
+        with:
+          name: libarchive
+          path: libarchive-3.5.1/.libs/
