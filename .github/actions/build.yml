@@ -1,0 +1,12 @@
+name: build
+on: push
+
+jobs:
+  node-docker:
+    runs-on: ubuntu-latest
+    container:
+      image: centos:7
+    steps:
+         - name: Install gcc
+           run: |
+             yum -y install gcc make
