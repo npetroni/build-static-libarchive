@@ -30,7 +30,7 @@ jobs:
         run: |
           curl -L -o xz-5.2.5.tar.gz https://sourceforge.net/projects/lzmautils/files/xz-5.2.5.tar.gz/download
           tar xfz xz-5.2.5.tar.gz
-          xz-5.2.5/configure CFLAGS=-fPIC LDFLAGS=-fPIC
+          cd xz-5.2.5 && ./configure CFLAGS=-fPIC LDFLAGS=-fPIC
           make -C xz-5.2.5
           make -C xz-5.2.5 install
       - name: Install OpenSSL
