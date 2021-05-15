@@ -26,3 +26,7 @@ jobs:
       - name: Install gcc
         run: |
           yum -y install gcc make
+      - name: ls
+        run: ls
+      - name: ls /github/workspace/
+        run: ls /github/workspace/
